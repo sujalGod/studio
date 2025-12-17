@@ -17,7 +17,7 @@ const analyzeMealTool = ai.defineTool({
   inputSchema: AnalyzeMealInputSchema,
   outputSchema: AnalyzeMealOutputSchema,
 },
-async (input) => {
+async (input: AnalyzeMealInput) => {
   let totalCalories = 0;
   let totalProtein = 0;
   let totalCarbs = 0;
