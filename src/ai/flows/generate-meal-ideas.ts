@@ -9,26 +9,8 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import { GenerateMealIdeasInputSchema, GenerateMealIdeasOutputSchema, type GenerateMealIdeasInput, type GenerateMealIdeasOutput } from '@/lib/types';
 
-const GenerateMealIdeasInputSchema = z.object({
-  dietaryRestrictions: z
-    .string()
-    .describe(
-      'Any dietary restrictions the user has, such as allergies, intolerances, or specific diets (e.g., vegetarian, vegan, gluten-free).'
-    ),
-  preferences: z
-    .string()
-    .describe('The user’s food preferences (e.g. likes, dislikes).'),
-});
-export type GenerateMealIdeasInput = z.infer<typeof GenerateMealIdeasInputSchema>;
-
-const GenerateMealIdeasOutputSchema = z.object({
-  mealIdeas: z
-    .array(z.string())
-    .describe('An array of meal ideas based on the dietary restrictions and preferences provided.'),
-});
-export type GenerateMealIdeasOutput = z.infer<typeof GenerateMealIdeasOutputSchema>;
 
 export async function generateMealIdeas(input: GenerateMealIdeasInput): Promise<GenerateMealIdeasOutput> {
   return generateMealIdeasFlow(input);
@@ -58,3 +40,5 @@ const generateMealIdeasFlow = ai.defineFlow(
     return output!;
   }
 );
+
+export type { GenerateMealIdeasInput, GenerateMealIdeasOutput };

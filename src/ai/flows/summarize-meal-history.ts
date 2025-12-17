@@ -9,26 +9,8 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import { SummarizeMealHistoryInputSchema, SummarizeMealHistoryOutputSchema, type SummarizeMealHistoryInput, type SummarizeMealHistoryOutput } from '@/lib/types';
 
-const SummarizeMealHistoryInputSchema = z.array(
-  z.object({
-    name: z.string(),
-    calories: z.number(),
-    protein: z.number(),
-    carbs: z.number(),
-    fat: z.number(),
-    quantity: z.number(),
-  })
-).describe('An array of meal objects, each containing nutritional information.');
-
-export type SummarizeMealHistoryInput = z.infer<typeof SummarizeMealHistoryInputSchema>;
-
-const SummarizeMealHistoryOutputSchema = z.object({
-  summary: z.string().describe('A summary of the meal history, including trends and personalized insights.'),
-});
-
-export type SummarizeMealHistoryOutput = z.infer<typeof SummarizeMealHistoryOutputSchema>;
 
 export async function summarizeMealHistory(input: SummarizeMealHistoryInput): Promise<SummarizeMealHistoryOutput> {
   return summarizeMealHistoryFlow(input);
@@ -58,3 +40,5 @@ const summarizeMealHistoryFlow = ai.defineFlow(
     return output!;
   }
 );
+
+export type { SummarizeMealHistoryInput, SummarizeMealHistoryOutput };

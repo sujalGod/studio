@@ -1,7 +1,7 @@
 "use server";
 
-import { analyzeMeal, type AnalyzeMealInput, type AnalyzeMealOutput } from '@/ai/flows/ai-powered-nutritional-analysis';
-import type { MealItem } from '@/lib/types';
+import { analyzeMeal } from '@/ai/flows/ai-powered-nutritional-analysis';
+import type { AnalyzeMealInput, AnalyzeMealOutput, MealItem } from '@/lib/types';
 
 export async function getAnalysis(mealItems: MealItem[]): Promise<{ success: true, data: AnalyzeMealOutput } | { success: false, error: string }> {
   if (!mealItems || mealItems.length === 0) {

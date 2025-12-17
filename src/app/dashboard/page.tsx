@@ -5,7 +5,7 @@ import FoodLibrary from '@/components/app/food-library';
 import MealBuilder from '@/components/app/meal-builder';
 import SessionHistory from '@/components/app/session-history';
 import type { FoodItem, MealItem, Session } from '@/lib/types';
-import type { AnalyzeMealOutput } from '@/ai/flows/ai-powered-nutritional-analysis';
+import type { AnalyzeMealOutput } from '@/lib/types';
 import { getAnalysis } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 

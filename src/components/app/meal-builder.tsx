@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { MealItem } from "@/lib/types";
-import type { AnalyzeMealOutput } from "@/ai/flows/ai-powered-nutritional-analysis";
+import type { AnalyzeMealOutput } from "@/lib/types";
 import { MinusCircle, PlusCircle, XCircle, Flame, Drumstick, Wheat, Droplet, Zap, RotateCw } from "lucide-react";
 import { Skeleton } from "../ui/skeleton";
 
