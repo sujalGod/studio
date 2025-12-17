@@ -16,15 +16,15 @@ export default function DashboardPage() {
   const [isAnalyzing, startTransition] = useTransition();
   const { toast } = useToast();
 
-  const handleAddItem = (food: FoodItem) => {
+  const handleAddItem = (food: FoodItem, quantity = 1) => {
     setCurrentMeal(prevMeal => {
       const existingItem = prevMeal.find(item => item.food.id === food.id);
       if (existingItem) {
         return prevMeal.map(item =>
-          item.food.id === food.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.food.id === food.id ? { ...item, quantity: item.quantity + quantity } : item
         );
       }
-      return [...prevMeal, { food, quantity: 1 }];
+      return [...prevMeal, { food, quantity }];
     });
     setAnalysisResult(null);
   };

@@ -3,15 +3,15 @@
 import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { foodLibrary } from '@/lib/food-data';
 import type { FoodItem } from '@/lib/types';
-import { PlusCircle, Search } from 'lucide-react';
+import { PlusCircle, Search, UtensilsCrossed } from 'lucide-react';
 import { VegIcon, NonVegIcon, EggIcon } from './icons';
 
 interface FoodLibraryProps {
-  onAddItem: (food: FoodItem) => void;
+  onAddItem: (food: FoodItem, quantity?: number) => void;
 }
 
 const CategoryIcon = ({ category }: { category: FoodItem['category'] }) => {
@@ -30,10 +30,31 @@ const CategoryIcon = ({ category }: { category: FoodItem['category'] }) => {
 
 export default function FoodLibrary({ onAddItem }: FoodLibraryProps) {
   const [searchTerm, setSearchTerm] = useState('');
+  const [customDishName, setCustomDishName] = useState('');
+  const [customDishQuantity, setCustomDishQuantity] = useState(1);
 
   const filteredFood = foodLibrary.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleAddCustomFood = () => {
+    if (customDishName.trim() === '') return;
+
+    const customFoodItem: FoodItem = {
+        id: `custom-${Date.now()}`,
+        name: customDishName,
+        serving: '1 serving',
+        category: 'veg', // Default or prompt user? For now, default.
+        calories: 0,
+        protein: 0,
+        carbs: 0,
+        fat: 0,
+    };
+    onAddItem(customFoodItem, customDishQuantity);
+    setCustomDishName('');
+    setCustomDishQuantity(1);
+  };
+
 
   return (
     <Card className="h-full flex flex-col border-t-0 border-b-0 border-l-0 rounded-none">
@@ -49,9 +70,38 @@ export default function FoodLibrary({ onAddItem }: FoodLibraryProps) {
           />
         </div>
       </CardHeader>
+      
+      <Card className="m-4">
+        <CardHeader>
+          <CardTitle className="text-lg flex items-center gap-2">
+            <UtensilsCrossed className="h-5 w-5" />
+            Custom Food
+          </CardTitle>
+          <CardDescription className="text-xs">Add a dish that's not in the library.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <Input 
+            placeholder="Name of the dish" 
+            value={customDishName}
+            onChange={(e) => setCustomDishName(e.target.value)}
+          />
+          <div className="flex gap-2">
+            <Input 
+              type="number" 
+              placeholder="Quantity" 
+              min="1"
+              value={customDishQuantity}
+              onChange={(e) => setCustomDishQuantity(parseInt(e.target.value, 10) || 1)}
+              className="w-24"
+            />
+            <Button onClick={handleAddCustomFood} className="flex-1">Add to Meal</Button>
+          </div>
+        </CardContent>
+      </Card>
+
       <CardContent className="flex-grow p-0 overflow-hidden">
         <ScrollArea className="h-full">
-          <div className="p-4 space-y-2">
+          <div className="p-4 pt-0 space-y-2">
             {filteredFood.map(item => (
               <div
                 key={item.id}
