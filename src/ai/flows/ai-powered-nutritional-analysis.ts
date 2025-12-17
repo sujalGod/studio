@@ -87,5 +87,3 @@ const aiPoweredNutritionalAnalysisFlow = ai.defineFlow(
 export async function analyzeMeal(input: AnalyzeMealInput): Promise<AnalyzeMealOutput> {
   return aiPoweredNutritionalAnalysisFlow(input);
 }
-
-export type { AnalyzeMealInput, AnalyzeMealOutput };

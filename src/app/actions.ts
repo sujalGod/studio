@@ -29,6 +29,7 @@ export async function getAnalysis(mealItems: MealItem[]): Promise<{ success: tru
     return { success: true, data: result };
   } catch (error) {
     console.error('Error in AI analysis:', error);
-    return { success: false, error: 'An unexpected error occurred while analyzing the meal.' };
+    const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred while analyzing the meal.';
+    return { success: false, error: errorMessage };
   }
 }

@@ -40,5 +40,3 @@ const summarizeMealHistoryFlow = ai.defineFlow(
     return output!;
   }
 );
-
-export type { SummarizeMealHistoryInput, SummarizeMealHistoryOutput };

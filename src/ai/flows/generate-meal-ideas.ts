@@ -40,5 +40,3 @@ const generateMealIdeasFlow = ai.defineFlow(
     return output!;
   }
 );
-
-export type { GenerateMealIdeasInput, GenerateMealIdeasOutput };
